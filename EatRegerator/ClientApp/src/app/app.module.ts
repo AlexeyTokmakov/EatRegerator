@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { FindComponent } from './find/find.component';
 import { ClickOutsideDirective } from '../lib/clickOutside.directive';
 import { ViewComponent } from './view/view.component';
+import { EatService } from '../services/eat-service/eat-service';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { ViewComponent } from './view/view.component';
       { path: '**', redirectTo: 'home' }
     ])
   ],
-  providers: [],
+  providers: [EatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

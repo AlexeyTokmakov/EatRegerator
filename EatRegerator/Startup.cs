@@ -1,3 +1,5 @@
+using EatRegerator.Services.Eat;
+using EatRegeratorAPI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Net.Http;
 
 namespace EatRegerator
 {
@@ -26,6 +29,10 @@ namespace EatRegerator
       {
         configuration.RootPath = "ClientApp/dist";
       });
+
+      services.AddTransient<IEatService, EatService>();
+      string restApiUrl = this.Configuration.GetSection("RestApiUrl").Value;
+      services.AddTransient <IEatRegeratorAPIClient>(e=> new EatRegeratorAPIClient(restApiUrl, new HttpClient()));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

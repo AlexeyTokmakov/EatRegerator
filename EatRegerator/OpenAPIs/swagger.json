@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Dish"
+                    "$ref": "#/components/schemas/Dishes"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Dish"
+                    "$ref": "#/components/schemas/Dishes"
                   }
                 }
               },
@@ -34,8 +34,124 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Dish"
+                    "$ref": "#/components/schemas/Dishes"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Eat/GetProducts": {
+      "get": {
+        "tags": [
+          "Eat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Eat/GetTypeDishes": {
+      "get": {
+        "tags": [
+          "Eat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypeDishesResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypeDishesResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypeDishesResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Eat/GetTypesKitchens": {
+      "get": {
+        "tags": [
+          "Eat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypesKitchensResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypesKitchensResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypesKitchensResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Eat/GetTypesMenu": {
+      "get": {
+        "tags": [
+          "Eat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypesMenuResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypesMenuResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTypesMenuResult"
                 }
               }
             }
@@ -46,7 +162,7 @@
   },
   "components": {
     "schemas": {
-      "TypeDish": {
+      "TypeDishes": {
         "type": "object",
         "properties": {
           "typeGuid": {
@@ -64,14 +180,64 @@
           "dishes": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Dish"
+              "$ref": "#/components/schemas/Dishes"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Recipe": {
+      "TypeKitchen": {
+        "type": "object",
+        "properties": {
+          "kitchenTypeGuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dishes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dishes"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TypeMenu": {
+        "type": "object",
+        "properties": {
+          "typeMenuGuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dishes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dishes"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Recipes": {
         "type": "object",
         "properties": {
           "recipeGuid": {
@@ -98,13 +264,13 @@
             "type": "string",
             "format": "uuid"
           },
-          "dish": {
-            "$ref": "#/components/schemas/Dish"
+          "dishGu": {
+            "$ref": "#/components/schemas/Dishes"
           }
         },
         "additionalProperties": false
       },
-      "Dish": {
+      "Dishes": {
         "type": "object",
         "properties": {
           "dishGuid": {
@@ -124,14 +290,126 @@
             "type": "string",
             "nullable": true
           },
-          "type": {
-            "$ref": "#/components/schemas/TypeDish"
+          "typeKitchenGuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "typeMenuGuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "typeGu": {
+            "$ref": "#/components/schemas/TypeDishes"
+          },
+          "typeKitchenGu": {
+            "$ref": "#/components/schemas/TypeKitchen"
+          },
+          "typeMenuGu": {
+            "$ref": "#/components/schemas/TypeMenu"
           },
           "recipes": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Recipe"
+              "$ref": "#/components/schemas/Recipes"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Products": {
+        "type": "object",
+        "properties": {
+          "productGuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetProductsResult": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Products"
+            },
+            "nullable": true
+          },
+          "resultCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetTypeDishesResult": {
+        "type": "object",
+        "properties": {
+          "typeDishes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeDishes"
+            },
+            "nullable": true
+          },
+          "resultCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetTypesKitchensResult": {
+        "type": "object",
+        "properties": {
+          "typesKitchen": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeKitchen"
+            },
+            "nullable": true
+          },
+          "resultCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetTypesMenuResult": {
+        "type": "object",
+        "properties": {
+          "typesMenu": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeMenu"
+            },
+            "nullable": true
+          },
+          "resultCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "error": {
+            "type": "string",
             "nullable": true
           }
         },

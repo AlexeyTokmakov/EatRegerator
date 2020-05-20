@@ -1,67 +1,66 @@
 <div class="menu-selected">
   <div class="menu-element dropdown-input">
-    <div class="dropdown" (clickOutside)="isOpen = false">
+    <div class="dropdown" (clickOutside)="increaseProduct.close()">
       <div class="input-group flex-nowrap">
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">Ингредиенты <i class="fas fa-fw fa-plus" style="color: green;"></i></span>
         </div>
-        <input type="text" class="form-control" placeholder="Ингредиенты" aria-label="Ингредиенты" aria-describedby="addon-wrapping" [(ngModel)]="productValue"
-               (keyup)="keyup()" (focus)="focus()">
+        <input type="text" class="form-control" placeholder="Ингредиенты" aria-label="Ингредиенты" aria-describedby="addon-wrapping" [(ngModel)]="increaseProduct.value"
+               (keyup)="increaseProduct.keyup()" (focus)="increaseProduct.focus()">
       </div>
-      <div class="dropdown-menu" [ngClass]="{'show': isOpen}">
-        <a class="dropdown-item" *ngFor="let p of products" (click)="add(p)">{{p}}</a>
+      <div class="dropdown-menu" [ngClass]="{'show': increaseProduct.isOpen}">
+        <a class="dropdown-item" *ngFor="let p of increaseProduct.listSelect" (click)="addIncreaseProduct(p)">{{p.name}}</a>
       </div>
     </div>
-    <div class="alert-success size-on-content selected-product" *ngFor="let d of selectedProducts">
+    <div class="alert-success size-on-content selected-product" *ngFor="let d of increaseProduct.selectedItems">
       {{d}}
     </div>
   </div>
   <div class="menu-element dropdown-input space-element">
-    <div class="dropdown" (clickOutside)="isOpen = false">
+    <div class="dropdown" (clickOutside)="decreaseProduct.close()">
       <div class="input-group flex-nowrap">
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">Ингредиенты <i class="fas fa-fw fa-minus" style="color: red;"></i></span>
         </div>
-        <input type="text" class="form-control" placeholder="Ингредиенты" aria-label="Ингредиенты" aria-describedby="addon-wrapping" [(ngModel)]="productValue"
-               (keyup)="keyup()" (focus)="focus()">
+        <input type="text" class="form-control" placeholder="Ингредиенты" aria-label="Ингредиенты" aria-describedby="addon-wrapping" [(ngModel)]="decreaseProduct.value"
+               (keyup)="decreaseProduct.keyup()" (focus)="decreaseProduct.focus()">
       </div>
-      <div class="dropdown-menu" [ngClass]="{'show': isOpen}">
-        <a class="dropdown-item" *ngFor="let p of products" (click)="add(p)">{{p}}</a>
+      <div class="dropdown-menu" [ngClass]="{'show': decreaseProduct.isOpen}">
+        <a class="dropdown-item" *ngFor="let p of decreaseProduct.listSelect" (click)="addDecreaseProduct(p)">{{p.name}}</a>
       </div>
     </div>
-    <div class="alert-danger size-on-content selected-product" *ngFor="let d of selectedProducts">
+    <div class="alert-danger size-on-content selected-product" *ngFor="let d of decreaseProduct.selectedItems">
       {{d}}
     </div>
   </div>
-  <div class="dropdown menu-element space-element" (clickOutside)="isOpenType = false">
-    <button class="btn btn-main dropdown-toggle" type="button" (click)="isOpenType = !isOpenType">
-      <ng-container *ngIf="!selectedtype">Тип блюда</ng-container>
-      <ng-container *ngIf="selectedtype">{{selectedtype}}</ng-container>
+  <div class="dropdown menu-element space-element" (clickOutside)="typeDishes?.close()">
+    <button class="btn btn-main dropdown-toggle" type="button" (click)="typeDishes?.click()">
+      <ng-container *ngIf="!typeDishes?.selectedValue">Тип блюда</ng-container>
+      <ng-container *ngIf="typeDishes?.selectedValue">{{typeDishes.selectedValue}}</ng-container>
     </button>
-    <div class="dropdown-menu" [ngClass]="{'show': isOpenType}">
-      <a class="dropdown-item" *ngFor="let p of type" (click)="addType(p)">{{p}}</a>
+    <div class="dropdown-menu" [ngClass]="{'show': typeDishes?.isOpen}">
+      <a class="dropdown-item" *ngFor="let p of typeDishes?.listSelect" (click)="selectTypeDishes(p)">{{p.title}}</a>
     </div>
   </div>
-  <div class="dropdown menu-element space-element">
-    <!--(clickOutside)="isOpenType = false"-->
-    <button class="btn btn-main dropdown-toggle" type="button" (click)="isOpenType = !isOpenType">
-      <ng-container *ngIf="!selectedtype">Вид кухни</ng-container>
-      <ng-container *ngIf="selectedtype">{{selectedtype}}</ng-container>
+  <div class="dropdown menu-element space-element" (clickOutside)="typesKitchens?.close()">
+    <button class="btn btn-main dropdown-toggle" type="button" (click)="typesKitchens?.click()">
+      <ng-container *ngIf="!typesKitchens?.selectedValue">Вид кухни</ng-container>
+      <ng-container *ngIf="typesKitchens?.selectedValue">{{typesKitchens.selectedValue}}</ng-container>
     </button>
-    <div class="dropdown-menu" [ngClass]="{'show': isOpenType}">
-      <a class="dropdown-item" *ngFor="let p of type" (click)="addType(p)">{{p}}</a>
+    <div class="dropdown-menu" [ngClass]="{'show': typesKitchens.isOpen}">
+      <a class="dropdown-item" *ngFor="let p of typesKitchens?.listSelect" (click)="selectTypesKitchens(p)">{{p.title}}</a>
     </div>
   </div>
-  <div class="dropdown menu-element space-element">
-    <!--(clickOutside)="isOpenType = false"-->
-    <button class="btn btn-main dropdown-toggle" type="button" (click)="isOpenType = !isOpenType">
-      <ng-container *ngIf="!selectedtype">Вид меню</ng-container>
-      <ng-container *ngIf="selectedtype">{{selectedtype}}</ng-container>
+  <div class="dropdown menu-element space-element" (clickOutside)="typesMenu?.close()">
+    <button class="btn btn-main dropdown-toggle" type="button" (click)="typesMenu?.click()">
+      <ng-container *ngIf="!typesMenu?.selectedValue">Вид меню</ng-container>
+      <ng-container *ngIf="typesMenu?.selectedValue">{{typesMenu.selectedValue}}</ng-container>
     </button>
-    <div class="dropdown-menu" [ngClass]="{'show': isOpenType}">
-      <a class="dropdown-item" *ngFor="let p of type" (click)="addType(p)">{{p}}</a>
+    <div class="dropdown-menu" [ngClass]="{'show': typesMenu.isOpen}">
+      <a class="dropdown-item" *ngFor="let p of typesMenu?.listSelect" (click)="selectTypesMenu(p)">{{p.title}}</a>
     </div>
   </div>
+
   <button type="button" class="btn btn-outline-search space-element"><i class="fas fa-fw fa-search"></i></button>
 </div>
 <div>
