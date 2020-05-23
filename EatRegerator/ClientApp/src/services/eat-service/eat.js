@@ -46,6 +46,20 @@ var TypesMenuResult = /** @class */ (function (_super) {
     return TypesMenuResult;
 }(BaseResponse_1.BaseResponse));
 exports.TypesMenuResult = TypesMenuResult;
+var DishesResult = /** @class */ (function (_super) {
+    __extends(DishesResult, _super);
+    function DishesResult() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return DishesResult;
+}(BaseResponse_1.BaseResponse));
+exports.DishesResult = DishesResult;
+var Dishes = /** @class */ (function () {
+    function Dishes() {
+    }
+    return Dishes;
+}());
+exports.Dishes = Dishes;
 var Products = /** @class */ (function () {
     function Products() {
     }
@@ -78,4 +92,26 @@ var GetDishesInput = /** @class */ (function () {
     return GetDishesInput;
 }());
 exports.GetDishesInput = GetDishesInput;
+var Recipes = /** @class */ (function () {
+    function Recipes() {
+    }
+    return Recipes;
+}());
+exports.Recipes = Recipes;
+var RecipeResult = /** @class */ (function (_super) {
+    __extends(RecipeResult, _super);
+    function RecipeResult() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return RecipeResult;
+}(BaseResponse_1.BaseResponse));
+exports.RecipeResult = RecipeResult;
+var DishRecipe = /** @class */ (function (_super) {
+    __extends(DishRecipe, _super);
+    function DishRecipe() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return DishRecipe;
+}(Dishes));
+exports.DishRecipe = DishRecipe;
 //# sourceMappingURL=eat.js.map

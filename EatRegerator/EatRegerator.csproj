@@ -42,17 +42,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" Namespace="EatRegeratorAPI.Client">
-      <SourceUri>http://localhost:8910/swagger/v1/swagger.json</SourceUri>
-      <CodeGenerator>NSwagCSharp</CodeGenerator>
-      <ClassName>EatRegeratorAPIClient</ClassName>
-      <OutputPath>EatRegeratorAPIClient.cs</OutputPath>
-      <Options>/GenerateClientInterfaces:true</Options>
-    </OpenApiReference>
+    <Folder Include="System\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="System\" />
+    <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" Namespace="EatRegeratorAPI.Client" Options="/GenerateClientInterfaces:true /EatRegeratorAPI.Client">
+      <SourceUri>http://localhost:8910/swagger/v1/swagger.json</SourceUri>
+    </OpenApiReference>
   </ItemGroup>
 
   <ItemGroup>

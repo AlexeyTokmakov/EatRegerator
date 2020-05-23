@@ -47,5 +47,17 @@ namespace EatRegerator.Controllers
       return eatService.GetTypesMenu();
     }
 
+    [HttpPost("GetDishes")]
+    public Task<DishesResult> GetDishes([FromBody]Services.Classes.GetDishesInput input)
+    {
+      return eatService.GetDishes(input);
+    }
+
+    [HttpPost("GetRecipe")]
+    public Task<RecipeResult> GetRecipe([FromBody]Guid dishGuid)
+    {
+      return eatService.GetRecipe(dishGuid);
+    }
+
   }
 }

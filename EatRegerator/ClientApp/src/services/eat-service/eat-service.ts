@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseService } from '../base-service';
-import { ProductsResult, TypeDishesResult, TypesKitchensResult, TypesMenuResult } from './eat';
+import { ProductsResult, TypeDishesResult, TypesKitchensResult, TypesMenuResult, DishesResult, GetDishesInput, RecipeResult } from './eat';
 
 @Injectable()
 export class EatService extends BaseService {
@@ -45,14 +45,21 @@ export class EatService extends BaseService {
   }
 
 
+  public getDishes(input: GetDishesInput): Promise<DishesResult> {
+    return this._http
+      .post(this._urlPrefix + "GetDishes", JSON.stringify(input), { headers: this._headers })
+      .toPromise()
+      .then(res => res as DishesResult)
+      .catch(reason => this.handleError(reason, "GetDishes"));
+  }
 
-  //public getContract(contractGuid: string): Promise<ContractResult> {
-  //  return this._http
-  //    .post(this._urlPrefix + "GetContract", JSON.stringify(contractGuid), { headers: this._headers })
-  //    .toPromise()
-  //    .then(res => res as ContractResult)
-  //    .catch(reason => this.handleError(reason, "getContract"));
-  //}
+  public getRecipe(guid: string): Promise<RecipeResult> {
+    return this._http
+      .post(this._urlPrefix + "GetRecipe", JSON.stringify(guid), { headers: this._headers })
+      .toPromise()
+      .then(res => res as RecipeResult)
+      .catch(reason => this.handleError(reason, "GetRecipe"));
+  }
 
 
   

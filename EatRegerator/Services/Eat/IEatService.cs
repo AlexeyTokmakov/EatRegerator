@@ -12,5 +12,7 @@ namespace EatRegerator.Services.Eat
     Task<TypeDishesResult> GetTypeDishes();
     Task<TypesKitchensResult> GetTypesKitchens();
     Task<TypesMenuResult> GetTypesMenu();
+    Task<DishesResult> GetDishes(Classes.GetDishesInput input);
+    Task<RecipeResult> GetRecipe(Guid dishGuid);
   }
 }

@@ -13,6 +13,8 @@ namespace EatRegerator.Services.Classes
     public string Title { get; set; }
     public Guid TypeKitchenGuid { get; set; }
     public Guid TypeMenuGuid { get; set; }
+    public string PictureUrl { get; set; }
+    public string Description { get; set; }
   }
 
   public class Products
@@ -70,5 +72,29 @@ namespace EatRegerator.Services.Classes
   public class TypesMenuResult : BaseResult
   {
     public List<TypeMenu> TypesMenu { get; set; }
+  }
+
+  public class DishesResult : BaseResult
+  {
+    public List<Dishes> Dishes { get; set; }
+  }
+
+  public class RecipeResult : BaseResult
+  {
+    public DishRecipe Recipe { get; set; }
+  }
+
+  public class DishRecipe : Dishes
+  {
+    public List<Recipes> Recipe { get; set; }
+  }
+
+  public class GetDishesInput
+  {
+    public List<Guid> IncreaseProductGuids { get; set; }
+    public List<Guid> DecreaseProductGuids { get; set; }
+    public Guid? TypeDishesGuid { get; set; }
+    public Guid? TypeKitchensGuid { get; set; }
+    public Guid? TypeMenuGuid { get; set; }
   }
 }

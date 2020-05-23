@@ -99,6 +99,65 @@ namespace EatRegerator.Services.Eat
       return result;
     }
 
+    public async Task<DishesResult> GetDishes(Classes.GetDishesInput input)
+    {
+      DishesResult result = new DishesResult();
+      try
+      {
+        EatRegeratorAPI.Client.GetDishesInput inputDishes = new EatRegeratorAPI.Client.GetDishesInput();
+        inputDishes.TypeDishesGuid = input.TypeDishesGuid;
+        inputDishes.TypeKitchensGuid = input.TypeKitchensGuid;
+        inputDishes.TypeMenuGuid = input.TypeMenuGuid;
+        inputDishes.IncreaseProductGuids = input.IncreaseProductGuids;
+        inputDishes.DecreaseProductGuids = input.DecreaseProductGuids;
+
+        GetDishesResult output = await _eatClient.GetDishesAsync(inputDishes);
+        if (output.ResultCode == -1) throw new Exception();
+
+        result.Dishes = output.Dishes?.Select(d => new Classes.Dishes
+        {
+          DishGuid = d.DishGuid,
+          Title = d?.Title,
+          PictureUrl = d?.PictureUrl,
+          Description = d?.Description
+        }).ToList() ?? new List<Classes.Dishes>();
+      }
+      catch(Exception ex)
+      {
+        SetException(result, ex);
+      }
+      return result;
+    }
+
+    public async Task<RecipeResult> GetRecipe(Guid dishGuid)
+    {
+      RecipeResult result = new RecipeResult();
+      try
+      {
+        GetRecipeResult output = await _eatClient.GetRecipeAsync(dishGuid);
+        if (output.ResultCode == -1) throw new Exception();
+        result.Recipe = new Classes.DishRecipe();
+        result.Recipe.CookingTime = output.Recipe.CookingTime;
+        result.Recipe.Description = output.Recipe.Description;
+        result.Recipe.DishGuid = output.Recipe.DishGuid;
+        result.Recipe.PictureUrl = output.Recipe.PictureUrl;
+        result.Recipe.Title = output.Recipe.Title;
+        result.Recipe.Recipe = output.Recipe.Recipe.Select(r => new Classes.Recipes
+        {
+          RecipeGuid = r.RecipeGuid,
+          Order = r.Order,
+          PictureUrl = r?.PictureUrl,
+          Text = r?.Text,
+          Title = r?.Title
+        }).ToList() ?? new List<Classes.Recipes>();
+      }
+      catch(Exception ex)
+      {
+        SetException(result, ex);
+      }
+      return result;
+    }
+
 
     private void SetException(BaseResult result, Exception ex)
     {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EatService } from '../../services/eat-service/eat-service';
 import { BaseResponse } from '../../services/BaseResponse';
-import { Products, GetDishesInput, TypeDishes, TypeKitchen, TypeMenu } from '../../services/eat-service/eat';
+import { Products, GetDishesInput, TypeDishes, TypeKitchen, TypeMenu, Dishes } from '../../services/eat-service/eat';
 import { DropdownSearchData, DropdownData } from '../../lib/dropdownData';
 
 @Component({
@@ -26,8 +26,10 @@ export class FindComponent implements OnInit {
   public typesKitchens: DropdownData;
   public typesMenu: DropdownData;
 
-
-  public selectedtype: string = "";
+  public dishes: Array<Dishes> = [];
+  public grid: any = [];
+  public countPages: number;
+  public activePage: number;
 
   ngOnInit(): void {
     this.initField();
@@ -69,13 +71,46 @@ export class FindComponent implements OnInit {
     this.typesMenu.selectValue(type.title);
   }
 
-
-  public addType(s: string) {
-    this.selectedtype = s;
+  public search() {
+    this.loadDishes();
   }
 
-  public navigateId(page: string, id: string | number) {
-    this._router.navigate(['/' + page, id]);
+  public loadDishes() {
+    this.eatService.getDishes(this.data).then(res => {
+      this.dishes = res.dishes;
+      this.BuildGrid();
+    }).catch(res => {
+      this.isError = true;
+    })
   }
 
+  public BuildGrid() {
+    this.grid = this.dishes.slice(0, 6);
+    this.countPages = Math.ceil(this.dishes.length / 6);
+    this.activePage = 1;
+  }
+
+  public Next() {
+    if (this.activePage == this.countPages) return;
+    this.activePage++;
+    let start = (this.activePage - 1) * 5;
+    this.grid = this.dishes.slice(start, start + 6);
+  }
+
+  public Previous() {
+    if (this.activePage == 1) return;
+    this.activePage--;
+    let start = (this.activePage - 1) * 5;
+    this.grid = this.dishes.slice(start, start + 6);
+  }
+
+  public last() {
+    if (this.activePage == this.countPages) return;
+    this.activePage = this.countPages;
+    this.grid = this.dishes.slice(this.dishes.length - 6, this.dishes.length);
+  }
+
+  public goToView(dishGuid) {
+    this._router.navigate(['/view', dishGuid]);
+  }
 }
