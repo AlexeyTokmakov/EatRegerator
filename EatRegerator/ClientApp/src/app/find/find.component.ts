@@ -23,7 +23,7 @@ export class FindComponent implements OnInit {
   public decreaseProduct: DropdownSearchData;
 
   public typeDishes: DropdownData;
-  public typesKitchens: DropdownData;
+  public typesKitchens: DropdownData; 
   public typesMenu: DropdownData;
 
   public dishes: Array<Dishes> = [];
