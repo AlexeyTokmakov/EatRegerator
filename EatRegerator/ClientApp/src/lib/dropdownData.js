@@ -19,11 +19,12 @@ var DropdownSearchData = /** @class */ (function () {
         }
         ;
         if (this.serviceCallback)
-            this.serviceCallback().then(function (res) {
+            this.serviceCallback(this.value).then(function (res) {
                 if (Validator.checkException(res))
                     _this.listSelect = res[_this.serviceFieldResult];
+                if (_this.listSelect && _this.listSelect.length > 0)
+                    _this.isOpen = true;
             });
-        this.isOpen = true;
     };
     DropdownSearchData.prototype.focus = function () {
         if (this.value.length < this.minSymbol)

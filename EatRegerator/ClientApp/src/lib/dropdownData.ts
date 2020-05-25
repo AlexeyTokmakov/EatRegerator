@@ -21,11 +21,12 @@ export class DropdownSearchData {
       return;
     };
     if (this.serviceCallback)
-      this.serviceCallback().then(res => {
+      this.serviceCallback(this.value).then(res => {
         if (Validator.checkException(res))
           this.listSelect = res[this.serviceFieldResult];
+        if (this.listSelect && this.listSelect.length > 0)
+          this.isOpen = true;
       });
-    this.isOpen = true;
   }
 
   public focus() {

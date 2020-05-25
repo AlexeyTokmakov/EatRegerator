@@ -12,9 +12,9 @@ export class EatService extends BaseService {
     this._urlPrefix = "/Eat/";
   }
 
-  public getProducts(): Promise<ProductsResult> {
+  public getProducts(searchString: string): Promise<ProductsResult> {
     return this._http
-      .get(this._urlPrefix + "GetProducts", { headers: this._headers })
+      .post(this._urlPrefix + "GetProducts", JSON.stringify(searchString), { headers: this._headers })
       .toPromise()
       .then(res => res as ProductsResult)
       .catch(reason => this.handleError(reason, "GetProducts"));

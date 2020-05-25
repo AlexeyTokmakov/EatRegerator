@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EatRegerator.Services.Cache;
 using EatRegerator.Services.Classes;
 using EatRegerator.Services.Eat;
 using EatRegeratorAPI.Client;
@@ -16,17 +17,19 @@ namespace EatRegerator.Controllers
   {
     private readonly ILogger<EatController> _logger;
     private readonly IEatService eatService;
+    private readonly ICacheService cache;
 
-    public EatController(ILogger<EatController> logger, IEatService _eatService)
+    public EatController(ILogger<EatController> logger, IEatService _eatService, ICacheService _cache)
     {
       _logger = logger;
       eatService = _eatService;
+      cache = _cache;
     }
 
-    [HttpGet("GetProducts")]
-    public Task<ProductsResult> GetProducts()
+    [HttpPost("GetProducts")]
+    public Task<ProductsResult> GetProducts([FromBody]string searchString)
     {
-      return eatService.GetProducts();
+      return cache.GetProducts(searchString);
     }
 
     [HttpGet("GetTypeDishes")]

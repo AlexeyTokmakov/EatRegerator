@@ -149,7 +149,8 @@ namespace EatRegerator.Services.Eat
           PictureUrl = r?.PictureUrl,
           Text = r?.Text,
           Title = r?.Title
-        }).ToList() ?? new List<Classes.Recipes>();
+        }).OrderBy(r=>r.Order).ToList() ?? new List<Classes.Recipes>();
+
       }
       catch(Exception ex)
       {

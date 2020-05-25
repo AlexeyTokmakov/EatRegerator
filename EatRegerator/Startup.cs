@@ -1,4 +1,6 @@
+using EatRegerator.Services.Cache;
 using EatRegerator.Services.Eat;
+using EatRegerator.Services.ObjectCache;
 using EatRegeratorAPI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,14 +32,17 @@ namespace EatRegerator
         configuration.RootPath = "ClientApp/dist";
       });
 
-      services.AddTransient<IEatService, EatService>();
       string restApiUrl = this.Configuration.GetSection("RestApiUrl").Value;
       services.AddTransient<IEatRegeratorAPIClient>(e => new EatRegeratorAPIClient(restApiUrl, new HttpClient()));
+      services.AddTransient<IEatService, EatService>();
+      services.AddSingleton<IObjectCache, ObjectCache>();
+      services.AddTransient<ICacheService, CacheService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ICacheService cache)
     {
+      cache.InitCache();
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();

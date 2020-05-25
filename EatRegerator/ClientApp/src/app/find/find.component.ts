@@ -36,8 +36,8 @@ export class FindComponent implements OnInit {
   }
 
   public initField() {
-    this.increaseProduct = new DropdownSearchData(() => this.eatService.getProducts(), "products");
-    this.decreaseProduct = new DropdownSearchData(() => this.eatService.getProducts(), "products");
+    this.increaseProduct = new DropdownSearchData((val) => this.eatService.getProducts(val), "products");
+    this.decreaseProduct = new DropdownSearchData((val) => this.eatService.getProducts(val), "products");
     this.typeDishes = new DropdownData(() => this.eatService.getTypeDishes(), "typeDishes");
     this.typesKitchens = new DropdownData(() => this.eatService.getTypesKitchens(), "typesKitchen");
     this.typesMenu = new DropdownData(() => this.eatService.getTypesMenu(), "typesMenu");
